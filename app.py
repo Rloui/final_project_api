@@ -1,13 +1,28 @@
 from flask import Flask, jsonify, g
 from flask_cors import CORS
+from flask_login import LoginManager
 
 import models
+
 from resources.trips import trip
+from resources.user import user
+
+login_manager = LoginManager()
 
 DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
+
+app.secret_key = 'FJSGPOFVNAPIGFHVFSHF'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None
 
 @app.before_request
 def before_request():
@@ -22,8 +37,10 @@ def after_request(response):
     return response
 
 CORS(trip, origins=['http://localhost:3000'], supports_credentials=True)
-
 app.register_blueprint(trip, url_prefix='/api/v1/trips')
+
+CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+app.register_blueprint(user, url_prefix='/user')
 
 @app.route('/')
 def index():
