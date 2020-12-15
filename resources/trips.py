@@ -7,7 +7,7 @@ from playhouse.shortcuts import model_to_dict
 trip = Blueprint('trips', 'trip')
 
 @trip.route('/', methods=['GET'])
-def get_all_trips()
+def get_all_trips():
     try:
         trips = [model_to_dict(trip) for trip in models.Trip.select()]
         print(trips)
