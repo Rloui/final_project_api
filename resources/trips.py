@@ -35,3 +35,11 @@ def create_trips():
     print(model_to_dict(trip), 'model to dict')
     trip_dict = model_to_dict(trip)
     return jsonify(data=trip_dict, status={'code': 201, 'message': 'Success'})
+
+# Update Route
+@trip.route('/<id>', methods=['PUT'])
+def  updated_trip(id):
+    payload = request.get_json()
+    query = models.Trip.update(**payload).where(models.Trip.id==id)
+    query.execute()
+    return jsonify(data=model_to_dict(models.Trip.get_by_id(id)), status={'code': 200, 'message': 'resource updated successfully'})
