@@ -13,7 +13,7 @@ class Trips(Model):
     class Meta:
         database = DATABASE
 
-def ininialize():
+def initialize():
     DATABASE.connect()
     DATABASE.create_tables([Trips], safe=True)
     print('TABLES Created')

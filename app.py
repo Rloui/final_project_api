@@ -25,4 +25,5 @@ def index():
     return 'hi'
 
 if __name__ == '__main__':
+    models.initialize()
     app.run(debug=DEBUG, port=PORT)
