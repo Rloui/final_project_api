@@ -43,3 +43,10 @@ def  updated_trip(id):
     query = models.Trip.update(**payload).where(models.Trip.id==id)
     query.execute()
     return jsonify(data=model_to_dict(models.Trip.get_by_id(id)), status={'code': 200, 'message': 'resource updated successfully'})
+
+# Delete Route
+@trip.route('/<id>', methods=['Delete'])
+def delete_trip(id):
+    query = models.Trip.delete().where(models.Trip.id==id)
+    query.execute()
+    return jsonify(data='resource successfully deleted', status={'code': 200, 'message': 'resource deleted successfully'})
