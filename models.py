@@ -7,7 +7,7 @@ DATABASE = PostgresqlDatabase('travel_app')
 class Trip(Model):
     destination = CharField()
     date = DateField()
-    budget = DecimalField()
+    budget = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
