@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, g
+from flask_cors import CORS
 
 import models
 
@@ -19,6 +20,9 @@ def after_request(response):
     g.db.close()
     return response
 
+CORS(trip, origins=['http://localhost:3000'], supports_credentials=True)
+
+app.register_blueprint(trip, url_prefix='/api/v1/trips')
 
 @app.route('/')
 def index():
