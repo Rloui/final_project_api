@@ -2,7 +2,7 @@ from peewee import *
 
 import datetime
 
-DATABASE = PostgresqlDatabase('trips')
+DATABASE = PostgresqlDatabase('travel_app')
 
 class Trip(Model):
     destination = CharField()
