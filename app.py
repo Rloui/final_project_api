@@ -2,6 +2,7 @@ from flask import Flask, jsonify, g
 from flask_cors import CORS
 
 import models
+from resources.trips import trip
 
 DEBUG = True
 PORT = 8000

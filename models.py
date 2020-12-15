@@ -4,10 +4,10 @@ import datetime
 
 DATABASE = PostgresqlDatabase('trips')
 
-class Trips(Model):
+class Trip(Model):
     destination = CharField()
-    date = DateTimeField()
-    budget = CharField()
+    date = DateField()
+    budget = DecimalField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
@@ -15,6 +15,6 @@ class Trips(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Trips], safe=True)
+    DATABASE.create_tables([Trip], safe=True)
     print('TABLES Created')
     DATABASE.close()
