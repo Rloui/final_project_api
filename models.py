@@ -5,26 +5,29 @@ import datetime
 
 DATABASE = PostgresqlDatabase('travel_app')
 
-class Users(UserMixin, Model):
-    username = CharField(unique=True)
-    email = CharField(unique=True)
-    password = CharField()
-
+class BaseModel(Model):
     class Meta:
         database = DATABASE
 
+class Users(UserMixin, BaseModel):
+    username = CharField(unique=True)
+    email = CharField(unique=True)
+    password = CharField()
+    join_date = DateTimeField(default=datetime.datetime.now)
 
-class Trip(Model):
+class Trip(BaseModel):
     destination = CharField()
     date = DateField()
     budget = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
-    class Meta:
-        database = DATABASE
+class Trip_bridge(BaseModel):
+    user_ID = ForeignKeyField(User)
+    trip_ID = ForeignKeyField(Trip)
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Users, Trip], safe=True)
+    DATABASE.create_tables([Users, Trip, Trip_bridge], safe=True)
     print('TABLES Created')
     DATABASE.close()
+
