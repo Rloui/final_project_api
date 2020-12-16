@@ -5,7 +5,7 @@ import datetime
 
 DATABASE = PostgresqlDatabase('travel_app')
 
-class User(UserMixin, Model):
+class Users(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
     password = CharField()
@@ -25,6 +25,6 @@ class Trip(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Trip], safe=True)
+    DATABASE.create_tables([Users, Trip], safe=True)
     print('TABLES Created')
     DATABASE.close()
