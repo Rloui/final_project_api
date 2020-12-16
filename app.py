@@ -5,7 +5,8 @@ from flask_login import LoginManager
 import models
 
 from resources.trips import trip
-from resources.user import user
+from resources.users import user
+from resources.trip_bridges import trip_bridge
 
 login_manager = LoginManager()
 
@@ -41,6 +42,9 @@ app.register_blueprint(trip, url_prefix='/api/v1/trips')
 
 CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
+
+CORS(trip_bridge, origins=['http://localhost:3000'], supports_credentials=True)
+app.register_blueprint(trip_bridge, url_prefix='/trip_bridge')
 
 @app.route('/')
 def index():
