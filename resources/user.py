@@ -42,6 +42,7 @@ def register():
 @user.route('/login', methods=['POST'])
 def login():
     payload = request.get_json()
+    payload['email'] = payload['email'].lower()
     print('payload:', payload)
     try:
         user = models.Users.get(models.Users.email == payload['email'])

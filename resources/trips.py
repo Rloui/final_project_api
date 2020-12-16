@@ -18,7 +18,7 @@ def get_all_trips():
 
 # Show Route
 @trip.route('/<id>', methods=['GET'])
-def get_one_dog(id):
+def get_one_trip(id):
     print(id, 'reserved word?')
     trip = models.Trip.get_by_id(id)
     print(trip.__dict__)
