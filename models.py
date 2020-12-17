@@ -22,8 +22,13 @@ class Trip(BaseModel):
     created_at = DateTimeField(default=datetime.datetime.now)
 
 class Trip_bridge(BaseModel):
-    user_ID = ForeignKeyField(User)
-    trip_ID = ForeignKeyField(Trip)
+    user_ID = ForeignKeyField(Users) # , backref='to_users')
+    trip_ID = ForeignKeyField(Trip) # , backref='to_trip')
+
+    # class Meta:
+    #     indexes = (
+    #         (('user_ID', 'trip_ID'), True)
+    #     )
 
 def initialize():
     DATABASE.connect()

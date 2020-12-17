@@ -13,8 +13,6 @@ user = Blueprint('users', 'user', url_prefix='/user')
 # def get_all_users():
 #     try:
 
-#
-
 # Register Route
 @user.route('/register', methods=['POST'])
 def register():

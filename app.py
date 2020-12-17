@@ -5,8 +5,8 @@ from flask_login import LoginManager
 import models
 
 from resources.trips import trip
-from resources.users import user
-from resources.trip_bridges import trip_bridge
+from resources.user import user
+from resources.trip_bridge import trip_bridge
 
 login_manager = LoginManager()
 
