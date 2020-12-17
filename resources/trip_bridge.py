@@ -8,6 +8,7 @@ trip_bridge = Blueprint('trip_bridges', 'trip_bridge', url_prefix='trip_bridge')
 
 # Create trip relation route
 @trip_bridge.route('/', methods=['POST'])
+@login_required
 def create_trip_relation():
     payload = request.get_json()
 
