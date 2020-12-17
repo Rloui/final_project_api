@@ -16,6 +16,17 @@ def get_all_trips():
     except models.DoesNotExist:
         return jsonify(data={}, status={'code': 401, 'message': 'Error getting the resources'})
 
+# Current User Trip Index Route
+@trip.route('/users', methods=['GET'])
+@login_required
+def get_all_user_trips():
+    try:
+        trips = [model_to_dict(trip_bridge) for trip_bridge in models.Trip_bridge.select().where(models.Trip_bridge.user_ID == current_user.id)]
+        print(trips)
+        return jsonify(data=trips, status={'code': 200, 'message': 'Success'})
+    except models.DoesNotExist:
+        return jsonify(data={}, status={'code': 401, 'message': 'Error getting the resources'})
+
 # Show Route
 @trip.route('/<id>', methods=['GET'])
 def get_one_trip(id):
