@@ -5,8 +5,15 @@ from flask import request, jsonify, Blueprint
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, logout_user
 from playhouse.shortcuts import model_to_dict
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 
 user = Blueprint('users', 'user', url_prefix='/user')
+
+# user.config['JWT_SECRET_KEY'] = 'dalfhlfhsljkgjbsfvvjlfnslkjf'  # Change this!
+# jwt = JWTManager(user)
 
 # Register Route
 @user.route('/register', methods=['POST'])
@@ -45,7 +52,9 @@ def login():
             del user_dict['password']
             login_user(user)
             print(user, 'this is user')
-            return jsonify(data=user_dict, status={'code': 200, 'message': 'Success'})
+
+            access_token = create_access_token(identity={'email' : user_dict['email']})
+            return jsonify(data=access_token, status={'code': 200, 'message': 'Success'})
         else:
             return jsonify(data={}, status={'code': 401, 'message': 'Username or Password is incorrect'})
     except models.DoesNotExist:

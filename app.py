@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, g
 from flask_cors import CORS
 from flask_login import LoginManager
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 
 import models
 
@@ -17,6 +21,8 @@ app = Flask(__name__)
 
 app.secret_key = 'FJSGPOFVNAPIGFHVFSHF'
 login_manager.init_app(app)
+app.config['JWT_SECRET_KEY'] = 'dalfhlfhsljkgjbsfvvjlfnslkjf'  # Change this!
+jwt = JWTManager(app)
 
 @login_manager.user_loader
 def load_user(userid):
