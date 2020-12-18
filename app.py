@@ -40,7 +40,7 @@ def after_request(response):
 CORS(trip, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(trip, url_prefix='/api/v1/trips')
 
-CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(user, origins=['*','http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
 
 CORS(trip_bridge, origins=['http://localhost:3000'], supports_credentials=True)
