@@ -37,7 +37,8 @@ def register():
 
         del user_dict['password']
 
-        return jsonify(data=user_dict, status={'code': 201, 'message': 'Success'})
+        access_token = create_access_token(identity={'email' : user_dict['email']})
+        return jsonify(data=access_token, status={'code': 200, 'message': 'Success'})
 
 # Log in Route
 @user.route('/login', methods=['POST'])
