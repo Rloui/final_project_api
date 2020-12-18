@@ -41,7 +41,7 @@ def get_one_trip(id):
 
 # Create Route
 @trip.route('/', methods=['POST'])
-@jwt_required
+# @jwt_required
 def create_trips():
     payload = request.get_json()
     print(type(payload), 'payload')
