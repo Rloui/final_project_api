@@ -3,6 +3,10 @@ import models
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from playhouse.shortcuts import model_to_dict
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 
 trip = Blueprint('trips', 'trip')
 
@@ -18,7 +22,7 @@ def get_all_trips():
 
 # Current User Trip Index Route
 @trip.route('/users', methods=['GET'])
-@login_required
+@jwt_required
 def get_all_user_trips():
     try:
         trips = [model_to_dict(trip_bridge) for trip_bridge in models.Trip_bridge.select().where(models.Trip_bridge.user_ID == current_user.id)]
