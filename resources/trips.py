@@ -23,7 +23,7 @@ def get_all_trips():
 # Current User Trip Index Route
 @trip.route('/users', methods=['GET'])
 @jwt_required
-def get_all_user_trips():
+def get_all_user_trips(current_user):
     try:
         trips = [model_to_dict(trip_bridge) for trip_bridge in models.Trip_bridge.select().where(models.Trip_bridge.user_ID == current_user.id)]
         print(trips)
@@ -41,6 +41,7 @@ def get_one_trip(id):
 
 # Create Route
 @trip.route('/', methods=['POST'])
+@jwt_required
 def create_trips():
     payload = request.get_json()
     print(type(payload), 'payload')
@@ -49,7 +50,8 @@ def create_trips():
     print(dir(trip))
     print(model_to_dict(trip), 'model to dict')
     trip_dict = model_to_dict(trip)
-    return jsonify(data=trip_dict, status={'code': 201, 'message': 'Success'})
+    new_trip_bridge = models.Trip_bridge.create(user_ID=current_user.id, trip_ID=trip_dict['id'])
+    return jsonify(data=trip_dict, status={'code': 201, 'message': 'Trip Creation Success'})
 
 # Update Route
 @trip.route('/<id>', methods=['PUT'])

@@ -12,8 +12,7 @@ from flask_jwt_extended import (
 
 user = Blueprint('users', 'user', url_prefix='/user')
 
-# user.config['JWT_SECRET_KEY'] = 'dalfhlfhsljkgjbsfvvjlfnslkjf'  # Change this!
-# jwt = JWTManager(user)
+
 
 # Register Route
 @user.route('/register', methods=['POST'])
@@ -66,3 +65,7 @@ def login():
 def logout():
     logout_user()
     return jsonify(data={}, status={'code': 200, 'message': 'successful logout'})
+
+# Update User
+
+# Delete User
